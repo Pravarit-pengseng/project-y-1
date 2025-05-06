@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MorThorEthnic - ข้อมูลชุมชน</title>
+    <style>
+        /* Reset และ Font */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Kanit', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f4e9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Header */
+        header {
+            background-color: #2c5e1a;
+            color: white;
+            padding: 1.5rem 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        
+        .tagline {
+            font-size: 1rem;
+            margin-top: 0.5rem;
+            opacity: 0.9;
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: #3a7d22;
+            padding: 1rem 0;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1.5rem;
+            margin: 0 0.5rem;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+        
+        .nav-link:hover {
+            background-color: #2c5e1a;
+        }
+        
+        /* Main Content */
+        .community-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .page-title {
+            color: #2c5e1a;
+            font-size: 2.2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .page-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: #e67e22;
+        }
+        
+        .community-description {
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            text-align: center;
+            color: #555;
+        }
+        
+        /* Community Hero */
+        .community-hero {
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+        }
+        
+        .community-hero-content {
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: white;
+            padding: 2rem;
+            width: 100%;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+        
+        .community-name {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .community-location {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .community-location i {
+            margin-right: 0.5rem;
+        }
+        
+        /* Community Sections */
+        .community-section {
+            margin-top: 3rem;
+            margin-bottom: auto;
+        }
+        
+        .section-title {
+            color: #2c5e1a;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e67e22;
+            display: inline-block;
+        }
+        
+        .section-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 8fr));
+            grid-template-rows: repeat(auto);
+            row-gap: 1rem;
+            column-gap: 5rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            
+            
+        }
+        
+        .section-text {
+            line-height: 1.8;
+            text-align: justify;
+            
+        }
+        
+        .section-image {
+            height: auto;
+            width: auto;
+            border-radius: 10px;
+            overflow: auto;
+        }
+        
+        .section-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+            
+        }
+        
+        /* Products Section */
+        .products-section {
+            margin-top: 3rem;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            column-gap: 5rem;
+            row-gap: 2.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .product-img {
+            height: 180px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .product-info {
+            padding: 1rem;
+        }
+        
+        .product-name {
+            color: #2c5e1a;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-price {
+            color: #e67e22;
+            font-weight: bold;
+        }
+        
+        /* Gallery Section */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 8fr));
+            grid-template-rows:repeat(auto,);
+            row-gap: 2.5rem;
+            column-gap: 5rem;
+            margin-top: 1.5rem;
+            
+            
+        }
+        
+        .gallery-item {
+            height: auto;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+         /* Footer */
+         footer {
+            background-color: #2c5e1a;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .contact-info {
+            margin-bottom: 1.5rem;
+        }
+        
+        .copyright {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .section-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .community-hero {
+                height: 300px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Krub:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">MorThorEthnic</div>
+        <div class="tagline">อนุรักษ์วัฒนธรรม สืบสานภูมิปัญญาไทย</div>
+    </header>
+    
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="mainpage-2.html" class="nav-link">หน้าแรก</a>
+            <a href="page2.html" class="nav-link active">ข้อมูลชุมชน</a>
+            <a href="shop.html" class="nav-link">สินค้าชุมชน</a>
+            <a href="activity.html" class="nav-link">กิจกรรม</a>
+            <a href="login.html" class="nav-link">ออกจากระบบ</a>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <div class="community-container">
+        <div class="page-header">
+            <h1 class="page-title"><p style="font-family: 'Krub', sans-serif;">ชุมชนเผ่ากะเหรี่ยง</p></h1>
+             
+        </div>
+        
+        <!-- Community Hero -->
+        <div class="community-hero" style="background-image: url('https://i.pinimg.com/736x/27/ee/16/27ee16ab743615d14638220ade491c4d.jpg') " >
+            <!--<div class="community-hero-content">
+                <div class="community-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>อำเภอ... จังหวัด...</span>
+                </div>
+                <p>ชุมชนที่ยังคงรักษาวิธีแบบดั้งเดิม</p>
+            </div>-->
+        </div>
+        <!-- About Section -->
+        <div class="community-section">
+            <h2 class="section-title"><p style="font-family: 'Krub', sans-serif;">&#x2022;&ensp;ข้อมูลเกี่ยวกับชนเผ่า</p></h2>
+            <div class="section-content">
+                <div class="section-image">
+                    <div class="section-image img" class="responsive">
+                        <img src="https://i.pinimg.com/736x/05/72/5f/05725f58619347b8eebe88da9bea9692.jpg" alt="ชุมชนกะเหรี่ยง">
+                    </div>
+                </div>
+                <div class="section-image">
+                    <div class="section-image img" class="responsive">
+                        <img  src="https://i.pinimg.com/736x/9a/f9/3c/9af93c8c7eb45c90ce4a88fd81100c53.jpg" alt="ชุมชนกะเหรี่ยง">
+                    </div>
+                </div>
+                <div class="section-image">
+                    <div class="section-image img" class="responsive">
+                        <img  src=" https://i.pinimg.com/736x/cc/6f/e4/cc6fe44f7585b3eee728734a2ec369f9.jpg " alt="ชุมชนกะเหรี่ยง">
+                    </div>
+                </div>
+
+                <div class="section-text">
+                    <pre style="font-family: 'Krub', sans-serif;"><b style="font-family: 'Krub', sans-serif;">ถิ่นที่อยู่</b>
+            ชนเผ่ากะเหรี่ยง หรือที่รู้จักกันในชื่อ “ปกาเกอะญอ ที่ตั้งถิ่นฐานในพื้นที่ภูเขาทางภาคเหนือและภาคตะวันตกของประเทศไทยโดยเฉพาะในจังหวัด
+แม่ฮ่องสอน ตาก เชียงใหม่ ลำพูน กาญจนบุรี และราชบุรี ลักษณะภูมิประเทศเป็นภูเขาสูงและป่าธรรมชาติอุดมสมบูรณ์  หมู่บ้านของชาวกะเหรี่ยง
+มักตั้งอยู่บนที่สูงหรือตามแนวเชิงเขาใกล้แหล่งน้ำ 
+<b style="font-family: 'Krub', sans-serif;">พื้นฐานอาชีพ </b>
+            ชาวกะเหรี่ยงส่วนใหญ่ประกอบอาชีพเกษตรกรรมแบบดั้งเดิม โดยเฉพาะการทำไร่หมุนเวียน ซึ่งเป็นการปลูกพืชในพื้นที่หนึ่งช่วงเวลาหนึ่ง 
+แล้วปล่อยพื้นที่ให้ฟื้นตัวตามธรรมชาติ พืชที่นิยมปลูก ได้แก่ ข้าวไร่ ข้าวโพด ฟักทอง ถั่ว และผักพื้นบ้าน นอกเหนือจากการทำเกษตรแล้วชาวกะเหรี่ยง
+ยังมีความเชี่ยวชาญในงานหัตถกรรมพื้นบ้าน โดยเฉพาะการทอผ้าและการสานผลิตภัณฑ์จากไม้ไผ่ ซึ่งเป็นอาชีพรองที่ช่วยเพิ่มรายได้และแสดงถึง
+เอกลักษณ์ของชนเผ่า ปัจจุบันชาวกะเหรี่ยงบางกลุ่มยังได้ปรับตัวเข้าสู่เศรษฐกิจสมัยใหม่ เช่น การปลูกกาแฟ พืชผลเศรษฐกิจและการท่องเที่ยว
+เชิงอนุรักษ์ ซึ่งช่วยสร้างรายได้โดยไม่ทำลายวิถีชีวิตดั้งเดิมของตนเอง</pre> 
+                </div>
+                
+            </div>
+        </div>
+        <!-- Products Section -->
+        <div class="community-section products-section">
+            <h2 class="section-title"><p style="font-family: 'Krub', sans-serif;">&#x2022;&ensp;สินค้าและผลิตภัณฑ์ต่าง ๆ</p></h2>
+            
+            <div class="products-grid">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <a href="product(2).html"><img src="https://i.pinimg.com/736x/1a/6a/67/1a6a676cf7fc38559135805a961d7268.jpg" alt="" class="product-img"></a>
+                    <div class="product-info">
+                        <h3 class="product-name">ชาพันปีแม่นิงใน</h3>
+                        <p class="product-price">150 บาท/ถุง</p>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <a href="product(1).html">
+                        <img src="https://i.pinimg.com/736x/6e/74/14/6e7414fd1af102d6e845bad5ff1a59a4.jpg" alt="..." class="product-img">
+                    </a>
+                    <div class="product-info">
+                        <h3 class="product-name">ผ้าทอกะเหรี่ยง (ผ้าซิ่น/เสื้อยาวทอมือ)</h3>
+                        <p class="product-price">300 บาท/ผืน</p>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <a href="product(3).html"><img src="https://i.pinimg.com/736x/bb/c7/10/bbc7108487538ea2fe2638bd3544913b.jpg" alt="..." class="product-img">
+                    </a>
+                    <div class="product-info">
+                        <h3 class="product-name">ข้าวพื้นบ้านและพืชอินทรีย์</h3>
+                        <p class="product-price">139 บาท/ถุง</p>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+    
+        <!-- Culture Section -->
+        <div class="community-section">
+            <h2 class="section-title"><p style="font-family: 'Krub', sans-serif;">&#x2022;&ensp;เรื่องราวและวัฒนธรรมที่ต้องการถ่ายทอด</p></h2>
+            <h2><p style="font-family: 'Krub', sans-serif;">-บทความที่เกี่ยวข้อง</p></h2>
+            <div class="gallery">
+                <div class="gallery-item">           
+                    <div>
+                        <a href="https://so08.tci-thaijo.org/index.php/ghuru/article/download/1101/768/3476">
+                        <img src="https://i.pinimg.com/736x/02/d4/d4/02d4d4fa8c0c4af034fd468f402d99f7.jpg" alt="วัฒนธรรมชุมชน">
+                        </a>
+                        <div class="section-text">
+                            <p>ภาพสะท้อนด้านวิถีชีวิตบทบาทและคุณค่า</p>
+                            <ul>
+                                <li>●ที่ปรากฏในนิทานพื้นบ้านกะเหรี่ยงแดง บ้านปูเต้อ ตำบลแม่กุ อำเภอแม่สอด จังหวัดตาก</li>
+                            </ul>
+                        </div>
+                    </div>  
+                </div>
+                <div class="gallery-item">           
+                    <div>
+                        <a href="https://www.finearts.go.th/storage/contents/file/PGOlqD7NqAUrvoNjmJLuVOKU0EnzH5D5hRwk05Us.pdf">
+                        <img src="https://i.pinimg.com/736x/16/93/8e/16938e835930bca094387cff4c2305e4.jpg" alt="วัฒนธรรมชุมชน">
+                        </a>
+                        <div class="section-text">
+                            <p>วิถีวัฒนธรรมชนเผ่าปกาเกอะญอ ตาก</p>
+                            <ul >
+                                <li>●การฟื้นฟูชีวิตวิถีชีวิตชาวกะเหรี่ยง ไม่ว่าจะเป็นด้านที่อยู่ ด้านอาหารการกิน หรือการประกอบอาชีพ</li>
+                            </ul>
+                        </div>
+                    </div>  
+                </div>
+                <div class="gallery-item">           
+                    <div>
+                        <a href="https://knce.org/%e0%b9%80%e0%b8%8a%e0%b8%b4%e0%b8%8d%e0%b8%8a%e0%b8%a7%e0%b8%99%e0%b8%a3%e0%b9%88%e0%b8%a7%e0%b8%a1%e0%b8%87%e0%b8%b2%e0%b8%99%e0%b8%96%e0%b8%ad%e0%b8%94%e0%b8%9a%e0%b8%97%e0%b9%80%e0%b8%a3%e0%b8%b5/">
+                        <img src="https://i.pinimg.com/736x/8c/fc/17/8cfc1745074b2230cd670d6bfae725ea.jpg" alt="วัฒนธรรมชุมชน">
+                        </a>
+                        <div class="section-text">
+                            <p>ภาพสะท้อนด้านวิถีชีวิตบทบาทและคุณค่า</p>
+                            <ul >
+                                <li>●ที่ปรากฏในนิทานพื้นบ้านกะเหรี่ยงแดง บ้านปูเต้อ ตำบลแม่กุ อำเภอแม่สอด จังหวัดตาก</li>
+                            </ul>
+                        </div>
+                    </div>  
+                </div>
+                <div class="gallery-item">           
+                    <div>
+                        <a href="https://so08.tci-thaijo.org/index.php/ghuru/article/download/1101/768/3476">
+                        <img src="https://i.pinimg.com/736x/69/fd/55/69fd5519377c38d025c651523072b670.jpg" alt="วัฒนธรรมชุมชน">
+                        </a>
+                        <div class="section-text">
+                            <p>ภาพสะท้อนด้านวิถีชีวิตบทบาทและคุณค่า</p>
+                            <ul >
+                                <li>●ที่ปรากฏในนิทานพื้นบ้านกะเหรี่ยงแดง บ้านปูเต้อ ตำบลแม่กุ อำเภอแม่สอด จังหวัดตาก</li>
+                            </ul>
+                        </div>
+                    </div>  
+                </div>  
+            </div>
+        </div>
+        
+        <!-- Gallery Section -->
+        <div class="community-section">
+            <h2><p style="font-family: 'Krub', sans-serif;">-ภาพและวิดีโอที่เกี่ยวข้อง</p></h2>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <div>
+                        <a href="https://youtu.be/Fve45k367pU?si=vmYCRP5D5AjmSdMt">
+                            <img src="https://i.pinimg.com/736x/32/c3/ce/32c3ce1d6bc9220ed52e2d3d57f84d98.jpg"> 
+                        </a>
+                        <p style="font-family: 'Krub', sans-serif;">&#x2022;&ensp;เดินทางขึ้นดอยมาร่วมงานแต่งชนเผ่ากะเหรี่ยงใน จ.แม่ฮ่องสอน</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <div>
+                        <a href="https://youtu.be/NCXn1azTr-c?si=sMGlvTtnZl8hXTcG">
+                        <img src="https://i.pinimg.com/736x/e8/37/85/e83785fc66672c5597f48514889dbc78.jpg" alt="...">
+                    </a> 
+                        <p style="font-family: 'Krub', sans-serif;">&#x2022;&ensp;วิถีคนบ้านกอเดอ จ.แม่ฮ่องสอน</p>
+                          
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div>
+                        <a href="https://youtu.be/b7SIj839TK8?si=QvNwgg-eNpYKqIkf">
+                        <img src="https://i.pinimg.com/736x/7c/51/ba/7c51bac2e36fcc4b0403af6009f5947b.jpg" alt="...">
+                        </a>
+                        <p style="font-family: 'Krub', sans-serif;">&#x2022;&ensp;วิถีชีวิตและวัฒนธรรมของชาวกะเหรี่ยง 
+                            : สังคม สนุกคิด</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div>
+                        <a href="https://youtu.be/ho6Awze-rIA?si=KuyJQOjppF9PMPv_">
+                        <img src="https://i.pinimg.com/736x/cf/29/24/cf29240dd829ea065ff5e52cddb114d4.jpg" alt="...">
+                        </a>
+                    <p style="font-family: 'Krub', sans-serif;">&#x2022;&ensp;ดูแล้วจะตกหลุมรัก ยูทูบเบอร์ชาวกะเหรี่ยง #น้องพรีม</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#">เกี่ยวกับเรา</a>
+                <a href="#">นโยบายความเป็นส่วนตัว</a>
+                <a href="#">ข้อกำหนดการใช้งาน</a>
+                <a href="contrack-page.html">ติดต่อเรา</a>
+            </div>
+            <div class="copyright">
+                © 2023 MorThorEthnic. สงวนลิขสิทธิ์ทุกประการ
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

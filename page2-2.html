@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MorThorEthnic - ข้อมูลชุมชน</title>
+    <style>
+        /* Reset และ Font */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Kanit', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f4e9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Header */
+        header {
+            background-color: #2c5e1a;
+            color: white;
+            padding: 1.5rem 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        
+        .tagline {
+            font-size: 1rem;
+            margin-top: 0.5rem;
+            opacity: 0.9;
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: #3a7d22;
+            padding: 1rem 0;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1.5rem;
+            margin: 0 0.5rem;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+        
+        .nav-link:hover {
+            background-color: #2c5e1a;
+        }
+        
+        /* Main Content */
+        .community-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .page-title {
+            color: #2c5e1a;
+            font-size: 2.2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .page-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: #e67e22;
+        }
+        
+        .community-description {
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            text-align: center;
+            color: #555;
+        }
+        
+        
+        /* Community Hero */
+        .community-hero {
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+        }
+        
+        .community-hero-content {
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: white;
+            padding: 2rem;
+            width: 100%;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+        
+        .community-name {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .community-location {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .community-location i {
+            margin-right: 0.5rem;
+        }
+        
+       /* Community Sections */
+        .community-section {
+            margin-top: 3rem;
+            margin-bottom: auto;
+        }
+        
+        .section-title {
+            color: #2c5e1a;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e67e22;
+            display: inline-block;
+        }
+        
+        .section-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 8fr));
+            grid-template-rows: repeat(auto);
+            row-gap: 1rem;
+            column-gap: 5rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            
+            
+        }
+        
+        .section-text {
+            line-height: 1.8;
+            text-align: justify;
+            
+        }
+        
+        .section-image {
+            height: auto;
+            width: auto;
+            border-radius: 10px;
+            overflow: auto;
+        }
+        
+        .section-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+            
+        }
+        
+        /* Products Section */
+        .products-section {
+            margin-top: 3rem;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            row-gap: 2.5rem;
+            column-gap: 5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .product-img {
+            height: 180px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .product-info {
+            padding: 1rem;
+        }
+        
+        .product-name {
+            color: #2c5e1a;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-price {
+            color: #e67e22;
+            font-weight: bold;
+        }
+        
+        /* Gallery Section */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 8fr));
+            grid-template-rows:repeat(auto,);
+            row-gap: 2.5rem;
+            column-gap: 5rem;
+            margin-top: 1.5rem;
+            
+            
+        }
+        
+        .gallery-item {
+            height: auto;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #2c5e1a;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .copyright {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .section-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .community-hero {
+                height: 300px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Krub:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">MorThorEthnic</div>
+        <div class="tagline">อนุรักษ์วัฒนธรรม สืบสานภูมิปัญญาไทย</div>
+    </header>
+    
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="mainpage-2.html" class="nav-link">หน้าแรก</a>
+            <a href="page2.html" class="nav-link active">ข้อมูลชุมชน</a>
+            <a href="shop.html" class="nav-link">สินค้าชุมชน</a>
+            <a href="activity.html" class="nav-link">กิจกรรม</a>
+            <a href="login.html" class="nav-link">ออกจากระบบ</a>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <div class="community-container">
+        <div class="page-header">
+            <h1 class="page-title"><p style="font-family: 'Krub', sans-serif;">ชุมชนเผ่าลีซูหรือลีซอ</p></h1>
+             
+        </div>
+        
+        <!-- Community Hero -->
+        <div class="community-hero" style="background-image: url('https://i.pinimg.com/736x/68/37/cc/6837ccab6bbe1c91eb59ee5c8fa05ef4.jpg') " >
+            <!--<div class="community-hero-content">
+                <h2 class="community-name">ชุมชนเผ่าลีซูหรือลีซอ</h2>
+                <div class="community-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>อำเภอ... จังหวัด...</span>
+                </div>
+                ชุมชนที่ยังคงรักษาวิธีแบบดั้งเดิม
+            </div></p>-->
+        </div>
+        <!-- About Section -->
+        <div class="community-section">
+            <h2 class="section-title"><p style="font-family: 'Krub', sans-serif;">&#x2022;&ensp;ข้อมูลเกี่ยวกับชนเผ่า</p></h2>
+            <div class="section-content">
+                <div class="section-image">
+                    <div class="section-image img" class="responsive">
+                        <img src="https://i.pinimg.com/736x/e2/b7/b1/e2b7b17b0cb507da9f25e8e989e1a71e.jpg" alt="ชุมชนลาซูหรือลีซอ">
+                    </div>
+                </div>
+                <div class="section-image">
+                    <div class="section-image img" class="responsive">
+                        <img  src="https://i.pinimg.com/736x/03/df/60/03df60838fba1eb722f206ed8f30fc8e.jpg" alt="ชุมชนลาซูหรือลีซอ">
+                    </div>
+                </div>
+                <div class="section-image">
+                    <div class="section-image img" class="responsive">
+                        <img  src=" https://i.pinimg.com/736x/33/6f/94/336f9476b9cf77e40cf93b31fb824599.jpg " alt="ชุมชนลาซูหรือลีซอ">
+                    </div>
+                </div>
+
+                <div class="section-text">
+                    <pre style="font-family: 'Krub', sans-serif;"><b style="font-family: 'Krub', sans-serif;">ถิ่นที่อยู่</b>
+            ปัจจุบัน ชาวลีซูมีถิ่นฐานกระจายอยู่ในพื้นที่ภูเขาทางภาคเหนือของประเทศไทย โดยเฉพาะในจังหวัดเชียงใหม่ เชียงราย แม่ฮ่องสอน ตาก พะเยา 
+ลำปาง สุโขทัย เพชรบูรณ์ และกำแพงเพชร  เช่น ในอำเภอเชียงดาว จังหวัดเชียงใหม่ ชาวลีซูอาศัยอยู่ในหลายหมู่บ้าน เช่น บ้านรินหลวง หนองแขม 
+ป่าบงงาม ห้วยจะค่าน และนาเลา 
+<b style="font-family: 'Krub', sans-serif;">พื้นฐานอาชีพ </b>
+            ชาวลีซูนิยมทำการเกษตรแบบไร่หมุนเวียน (shifting cultivation) โดยปลูกพืชสลับพื้นที่และพักดินเป็นระยะ เพื่อรักษาความอุดมสมบูรณ์ของดิน
+และลดการใช้สารเคมี พืชที่ปลูก เช่น ข้าวไร่ ข้าวโพด พริก เผือก ชาวลีซูมีทักษะ ในงานหัตถกรรม เช่น การทอผ้า เย็บปักลายผ้า และการทำเครื่องประดับ
+จากโลหะเงิน ในบางพื้นที่ชาวลีซูได้ปรับตัว โดยการปลูกพืชเศรษฐกิจใหม่ เช่น กาแฟ และแปรรูปผลิตภัณฑ์เพื่อจำหน่ายในตลาดท้องถิ่น</pre> 
+                </div>
+                
+            </div>
+        </div>
+        <!-- Products Section -->
+        <div class="community-section products-section">
+            <h2 class="section-title"><p style="font-family: 'Krub', sans-serif;">&#x2022;&ensp;สินค้าและผลิตภัณฑ์ต่าง ๆ</p></h2>
+            
+            <div class="products-grid">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <a href="product(10).html"><img src="https://i.pinimg.com/736x/b2/b3/70/b2b370c614a7a5a1c28ba86be9388c15.jpg" alt="..." class="product-img">
+                    </a>
+                    <div class="product-info">
+                        <h3 class="product-name">โกโก้สด</h3>
+                        <p class="product-price">80 บาท/กิโลกรัม</p>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <a href="product(11).html">
+                        <img src="https://i.pinimg.com/736x/29/e9/0a/29e90a1d0866665a789b0c580d62beb0.jpg" alt="..." class="product-img">
+                    </a>
+                    <div class="product-info">
+                        <h3 class="product-name">ช็อกโกแลต</h3>
+                        <p class="product-price">80 บาท/กล่อง</p>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <a href="product(12).html">
+                        <img src="https://i.pinimg.com/736x/0e/d3/9d/0ed39d3872377d5613171b9695f6472d.jpg" alt="..." class="product-img">
+                    </a>
+                    <div class="product-info">
+                        <h3 class="product-name">กระเป๋า</h3>
+                        <p class="product-price">200 บาท/ใบ</p>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+    
+        <!-- Culture Section -->
+        <div class="community-section">
+            <h2 class="section-title"><p style="font-family: 'Krub', sans-serif;">&#x2022;&ensp;เรื่องราวและวัฒนธรรมที่ต้องการถ่ายทอด</p></h2>
+            <h2><p style="font-family: 'Krub', sans-serif;">-บทความที่เกี่ยวข้อง</p></h2>
+            <div class="gallery">
+                <div class="gallery-item">           
+                    <div>
+                        <a href="https://arit.kpru.ac.th/ap2/local/?nu=pages&page_id=2102&code_db=610004&code_type=05">
+                        <img src="https://i.pinimg.com/736x/bc/1c/37/bc1c373093db4a68c7b7d65aab6ffd97.jpg" alt="วัฒนธรรมชุมชน">
+                        </a>
+                        <div class="section-text">
+                            <p>ข้อมูลโดยทั่วไปชนเผ่าลีซอ (ลีซู)</p>
+                            <ul>
+                                <li>●ชนเผ่าลีซอ (ลีซู) ตำบลคลองลานพัฒนา อำเภอคลองลาน จังหวัดกำแพงเพชร</li>
+                            </ul>
+                        </div>
+                    </div>  
+                </div>
+                <div class="gallery-item">           
+                    <div>
+                        <a href="https://www.ar5ethnics.com/Uploads/files/ebook/leesoo_ebook.pdf">
+                        <img src="https://i.pinimg.com/736x/01/dd/9f/01dd9f437729d209cf17555b1e34c519.jpg" alt="วัฒนธรรมชุมชน">
+                        </a>
+                        <div class="section-text">
+                            <p>ความเชื่อและพิธีกรรมของลีซู</p>
+                            <ul >
+                                <li>●พิธีกรรมบวงสรวงบนบานหนี่ของกลุ่มชาติพันธุ์ลีซู
+                                    และความเชื่อเรื่องผี</li>
+                            </ul>
+                        </div>
+                    </div>  
+                </div>
+                <div class="gallery-item">           
+                    <div>
+                        <a href="http://phayao-hdc.go.th/pdf/%E0%B8%82%E0%B9%89%E0%B8%AD%E0%B8%A1%E0%B8%B9%E0%B8%A5%E0%B8%8A%E0%B8%99%E0%B9%80%E0%B8%9C%E0%B9%88%E0%B8%B2%E0%B8%A5%E0%B8%B5%E0%B8%8B%E0%B8%B9.pdf">
+                        <img src="https://i.pinimg.com/736x/f9/24/a0/f924a039ad1872204da3becf366c9e86.jpg" alt="วัฒนธรรมชุมชน">
+                        </a>
+                        <div class="section-text">
+                            <p>ข้อมูลชนเผ่าลีซูหรือลีซอ</p>
+                            <ul >
+                                <li>●ประกอบด้วยชีวิตด้านความเป็นอยู่ การประกอบอาชีพ ความเชื่อ วัฒนธรรมและประเพณี</li>
+                            </ul>
+                        </div>
+                    </div>  
+                </div>
+                <div class="gallery-item">           
+                    <div>
+                        <a href="https://prachatai.com/journal/2022/03/97720">
+                        <img src="https://i.pinimg.com/736x/bf/8a/35/bf8a353f069c19c931c67601176f3f1c.jpg" alt="วัฒนธรรมชุมชน">
+                        </a>
+                        <div class="section-text">
+                            <p>ลีซู นาเลา...คนภูเขา กับการปรับตัว</p>
+                            <ul >
+                                <li>●การปรับตัว เมื่อยูเนสโกประกาศดอยเชียงดาวเป็น
+                                    พื้นที่สงวนชีวมณฑลแห่งใหม่</li>
+                            </ul>
+                        </div>
+                    </div>  
+                </div>       
+            </div>
+        </div>
+        
+        <!-- Gallery Section -->
+        <div class="community-section">
+            <h2><p style="font-family: 'Krub', sans-serif;">-ภาพและวิดีโอที่เกี่ยวข้อง</p></h2>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <div>
+                        <a href="https://youtu.be/93d84_QWIF8?si=TYHeIbOvQzk5p8k5">
+                        <img src="https://i.pinimg.com/736x/d7/19/21/d71921baeea15400c883dff50be6079c.jpg"> 
+                        </a>
+                        <p style="font-family: 'Krub', sans-serif;">&#x2022;&ensp; วิถีชีวิตชนเผ่าลีซู วัฒนธรรมดั้งเดิม ที่หมู่บ้านขุนแจ๋ อ.พร้าว จ.เชียงใหม</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <div>
+                        <a href="https://youtu.be/kKdoGwIwNKk?si=Ju9ZNAjD0ldJfrQM">
+                        <img src="https://i.pinimg.com/736x/73/d3/fc/73d3fc3eaf71d61038f25fbe7eb49061.jpg" alt="...">
+                        </a>
+                        <p style="font-family: 'Krub', sans-serif;">&#x2022;&ensp;EP.57 เที่ยวงานชนเผ่าลีซอ (ลีซู)</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div>
+                        <a href="https://youtu.be/5rq31wD-xdg?si=QxdPrWOjXXJVs-JE">
+                        <img src="https://i.pinimg.com/736x/4d/eb/32/4deb329eab2743e99041acbc94f76fc5.jpg" alt="...">
+                        </a>
+                        <p style="font-family: 'Krub', sans-serif;">&#x2022;&ensp;Lisu ลีซูZหรือลีซอเป็นใครมาจากไหนไปฟัง
+                            กันนะคะ | HANGJAI TAI </p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div>
+                        <a href="https://youtu.be/bhN6-uU-fGQ?si=u72Z9mPO-fh5NxpB">
+                        <img src="https://i.pinimg.com/736x/54/e2/aa/54e2aaa4af07461c11dd210b2604dfc4.jpg" alt="...">
+                        </a>
+                    <p style="font-family: 'Krub', sans-serif;">&#x2022;&ensp;อ.ปาย ฤดูร้อน กับชนเผ่าลีซอหรือลีซู
+                        จ.แม่ฮ่องสอน</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#">เกี่ยวกับเรา</a>
+                <a href="#">นโยบายความเป็นส่วนตัว</a>
+                <a href="#">ข้อกำหนดการใช้งาน</a>
+                <a href="contrack-page.html">ติดต่อเรา</a>
+            </div>
+            <div class="copyright">
+                © 2023 MorThorEthnic. สงวนลิขสิทธิ์ทุกประการ
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

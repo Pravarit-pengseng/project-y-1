@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MorThorEthnic - ข้อมูลชุมชน</title>
+    <style>
+        /* Reset และ Font */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Kanit', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f4e9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Header */
+        header {
+            background-color: #2c5e1a;
+            color: white;
+            padding: 1.5rem 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        
+        .tagline {
+            font-size: 1rem;
+            margin-top: 0.5rem;
+            opacity: 0.9;
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: #3a7d22;
+            padding: 1rem 0;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1.5rem;
+            margin: 0 0.5rem;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+        
+        .nav-link:hover {
+            background-color: #2c5e1a;
+        }
+        
+        /* Main Content */
+        .community-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .page-title {
+            color: #2c5e1a;
+            font-size: 2.2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .page-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: #e67e22;
+        }
+        
+        .community-description {
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            text-align: center;
+            color: #555;
+        }
+        
+        /* Community Hero */
+        .community-hero {
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+        }
+        
+        .community-hero-content {
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: white;
+            padding: 2rem;
+            width: 100%;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+        
+        .community-name {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .community-location {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .community-location i {
+            margin-right: 0.5rem;
+        }
+        
+        /* Community Sections */
+        .community-section {
+            margin-top: 3rem;
+            margin-bottom: auto;
+        }
+        
+        .section-title {
+            color: #2c5e1a;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e67e22;
+            display: inline-block;
+        }
+        
+        .section-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 8fr));
+            grid-template-rows: repeat(auto);
+            row-gap: 1rem;
+            column-gap: 5rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            
+            
+        }
+        
+        .section-text {
+            line-height: 1.8;
+            text-align: justify;
+            
+        }
+        
+        .section-image {
+            height: auto;
+            width: auto;
+            border-radius: 10px;
+            overflow: auto;
+        }
+        
+        .section-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+            
+        }
+        
+        /* Products Section */
+        .products-section {
+            margin-top: 3rem;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            column-gap: 5rem;
+            row-gap: 2.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .product-img {
+            height: 180px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .product-info {
+            padding: 1rem;
+        }
+        
+        .product-name {
+            color: #2c5e1a;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-price {
+            color: #e67e22;
+            font-weight: bold;
+        }
+        
+        /* Gallery Section */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 8fr));
+            grid-template-rows:repeat(auto,);
+            row-gap: 2.5rem;
+            column-gap: 5rem;
+            margin-top: 1.5rem;
+            
+            
+        }
+        
+        .gallery-item {
+            height: auto;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #2c5e1a;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            width: auto;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .copyright {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .section-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .community-hero {
+                height: 300px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Krub:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">MorThorEthnic</div>
+        <div class="tagline">อนุรักษ์วัฒนธรรม สืบสานภูมิปัญญาไทย</div>
+    </header>
+    
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="mainpage-2.html" class="nav-link">หน้าแรก</a>
+            <a href="page2.html" class="nav-link active">ข้อมูลชุมชน</a>
+            <a href="shop.html" class="nav-link">สินค้าชุมชน</a>
+            <a href="activity.html" class="nav-link">กิจกรรม</a>
+            <a href="login.html" class="nav-link">ออกจากระบบ</a>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <div class="community-container">
+        <div class="page-header">
+            <h1 class="page-title"><p style="font-family: 'Krub', sans-serif;">ชุมชนเผ่าม้ง</p></h1>
+             
+        </div>
+        
+        <!-- Community Hero -->
+        <div class="community-hero" style="background-image: url('https://i.pinimg.com/736x/0a/63/c4/0a63c41171b684b6392cbb8979d39ccf.jpg') " >
+            <!--<div class="community-hero-content">
+                <h2 class="community-name">ชุมชนเผ่าม้ง</h2>
+                <div class="community-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>อำเภอ... จังหวัด...</span>
+                </div>
+                <p>ชุมชนที่ยังคงรักษาวิธีแบบดั้งเดิม</p>
+            </div>-->
+        </div>
+        <!-- About Section -->
+        <div class="community-section">
+            <h2 class="section-title"><p style="font-family: 'Krub', sans-serif;">&#x2022;&ensp;ข้อมูลเกี่ยวกับชนเผ่า</p></h2>
+            <div class="section-content">
+                <div class="section-image">
+                    <div class="section-image img" class="responsive">
+                        <img src="https://i.pinimg.com/736x/d2/20/33/d22033d568ffcfe71b3b9f0dd5a6f8ca.jpg" alt="ชุมชนลาซูหรือลีซอ">
+                    </div>
+                </div>
+                <div class="section-image">
+                    <div class="section-image img" class="responsive">
+                        <img  src="https://i.pinimg.com/736x/a2/8e/2c/a28e2c872ee89c86cfd7ea9440a65018.jpg" alt="ชุมชนลาซูหรือลีซอ">
+                    </div>
+                </div>
+                <div class="section-image">
+                    <div class="section-image img" class="responsive">
+                        <img  src=" https://i.pinimg.com/736x/14/5b/dc/145bdc54cafedd8d131511d338314137.jpg" alt="ชุมชนลาซูหรือลีซอ">
+                    </div>
+                </div>
+                <div class="section-text">
+                    <pre style="font-family: 'Krub', sans-serif;"><b style="font-family: 'Krub', sans-serif;">ถิ่นที่อยู่</b>
+            ชาวม้งเป็นชนเผ่าที่มีถิ่นฐานดั้งเดิมอยู่ในประเทศจีน ก่อนจะอพยพลงมาทางตอนใต้เข้าสู่ประเทศเวียดนาม ลาว และประเทศไทย โดยในประเทศไทย
+ชาวม้งตั้งถิ่นฐานอยู่บริเวณภูเขาสูงในภาคเหนือ เช่น จังหวัดเชียงใหม่ เชียงราย น่าน แม่ฮ่องสอน เพชรบูรณ์ และตาก พวกเขามักอาศัยอยู่ตามดอย
+หรือพื้นที่สูงที่มีความสูงซึ่งเหมาะแก่การเพาะปลูกและดำรงชีวิตแบบพึ่งพาธรรมชาติ 
+<b style="font-family: 'Krub', sans-serif;">พื้นฐานอาชีพ </b>
+            อาชีพหลักของชาวม้งคือการเกษตร โดยเน้นการปลูกพืชไร่ เช่น ข้าวโพด ข้าว และพืชเมืองหนาว นอกจากนี้ หัตถกรรมเป็นอีกหนึ่งอาชีพที่สำคัญ 
+โดยเฉพาะการปักผ้าและทำเครื่องเงินตามลวดลายประเพณีของเผ่า และในบางพื้นที่ที่เปิดรับนักท่องเที่ยว ชาวม้งยังมีรายได้จากการจัดกิจกรรมวัฒนธรรม 
+การขายของที่ระลึก และให้บริการโฮมสเตย์</pre> 
+                </div>
+                
+            </div>
+        </div>
+        <!-- Products Section -->
+        <div class="community-section products-section">
+            <h2 class="section-title"><p style="font-family: 'Krub', sans-serif;">&#x2022;&ensp;สินค้าและผลิตภัณฑ์ต่าง ๆ</p></h2>
+            
+            <div class="products-grid">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <a href="product(4).html">
+                        <img src="https://i.pinimg.com/736x/b8/86/c2/b886c2bfd6f73d004ab7184b3daa4739.jpg" alt="..." class="product-img">
+                    </a>
+                    <div class="product-info">
+                        <h3 class="product-name">ผ้าเขียนเทียน</h3>
+                        <p class="product-price">250 บาท/ผืน</p>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <a href="product(5).html">
+                        <img src="https://i.pinimg.com/736x/f1/e2/7e/f1e27e402193419d188a8d7c79e60935.jpg" alt="..." class="product-img">
+                    </a>
+                    <div class="product-info">
+                        <h3 class="product-name">น้ำพริกสมุนไพร</h3>
+                        <p class="product-price">69 บาท/กระปุก</p>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <a href="product(6).html">
+                        <img src="https://i.pinimg.com/736x/1b/39/96/1b3996230a54df8d9eb1d29a8650ec8e.jpg" alt="..." class="product-img">
+                    </a>
+                    <div class="product-info">
+                        <h3 class="product-name">ผ้าย่ามม้ง จากเครือข่ายสตรีม้ง</h3>
+                        <p class="product-price">450 บาท/ชิ้น</p>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+    
+        <!-- Culture Section -->
+        <div class="community-section">
+            <h2 class="section-title"><p style="font-family: 'Krub', sans-serif;">&#x2022;&ensp;เรื่องราวและวัฒนธรรมที่ต้องการถ่ายทอด</p></h2>
+            <h2><p style="font-family: 'Krub', sans-serif;">-บทความที่เกี่ยวข้อง</p></h2>
+            <div class="gallery">
+                <div class="gallery-item">           
+                    <div>
+                        <a href="https://has.hcu.ac.th/jspui/handle/123456789/145">
+                        <img src="https://i.pinimg.com/736x/6a/e5/ac/6ae5ac525c6c9adaa7bc70f90d7be9ac.jpg" alt="วัฒนธรรมชุมชน">
+                        </a>
+                        <div class="section-text">
+                            <p>วิถีชีวิตของกลุ่มชาติพันธุ์ม้ง</p>
+                            <ul>
+                                <li>●กรณีศึกษาบ้านแม่สาใหม่ โดยมีการศึกษาวิถีชีวิต วัฒนธรรมและประเพณี</li>
+                            </ul>
+                        </div>
+                    </div>  
+                </div>
+                <div class="gallery-item">           
+                    <div>
+                        <a href="https://so06.tci-thaijo.org/index.php/jcosci/article/download/93112/72938/">
+                        <img src="https://i.pinimg.com/736x/78/6d/e6/786de6c3d126df37e93dfc43a89e3b7a.jpg" alt="วัฒนธรรมชุมชน">
+                        </a>
+                        <div class="section-text">
+                            <p>ทุนทางวัฒนธรรมของชาวเผ่าม้ง</p>
+                            <ul >
+                                <li>●ทุนทางวัฒนธรรมของชาวเผ่าม้งกับกลยุทธ์
+                                    ส่งเสริมการท่องเที่ยวเชิงสร้างสรรค์</li>
+                            </ul>
+                        </div>
+                    </div>  
+                </div>
+                <div class="gallery-item">           
+                    <div>
+                        <a href="https://archive.lib.cmu.ac.th/full/T/2558/regio60758kcv_ch4.pdf">
+                        <img src="https://i.pinimg.com/736x/a2/57/21/a257210b231a8332bd1ed4462f6869bc.jpg" alt="วัฒนธรรมชุมชน">
+                        </a>
+                        <div class="section-text">
+                            <p>ข้อมูลพื้นฐานของชาวม้ง</p>
+                            <ul >
+                                <li>●ประวัติความเป็นมาของกลุ่มชาติพันธุ์ม้ง การอพยพโยกย้ายถิ่นฐานเข้ามายังประเทศไทย</li>
+                            </ul>
+                        </div>
+                    </div>  
+                </div>
+                <div class="gallery-item">           
+                    <div>
+                        <a href="https://thaienvi.com/article/view/254">
+                        <img src="https://i.pinimg.com/736x/ce/bd/2a/cebd2adbda36474aca5bc8fa56205b1f.jpg" alt="วัฒนธรรมชุมชน">
+                        </a>
+                        <div class="section-text">
+                            <p>เฮมพ์ รากเหง้าแห่งวิถีชีวิตวัฒนธรรมชาวม้ง</p>
+                            <ul >
+                                <li>●การศึกษาภาคการเกษตรที่เป็นส่วนสำคัญของรากเหง้าแห่ง
+                                    วิถีชีวิตวัฒนธรรมชาวม้ง</li>
+                            </ul>
+                        </div>
+                    </div>  
+                </div>
+            </div>    
+        </div>
+        
+        
+        <!-- Gallery Section -->
+        <div class="community-section">
+            <h2><p style="font-family: 'Krub', sans-serif;">-ภาพและวิดีโอที่เกี่ยวข้อง</p></h2>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <div>
+                        <a href=" https://youtu.be/v8EXGXmaRWo?si=sQRVdWta6RuAtGdA">
+                            <img src="https://i.pinimg.com/736x/28/bb/9d/28bb9d37066af7d3772492c4c49f81a4.jpg"> 
+                        </a>
+                        <p style="font-family: 'Krub', sans-serif;">&#x2022;&ensp;เดินทางไปกับชาติพันธุ์ Journey of the Ethnic : ม้ง ตอนที่ 3</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <div>
+                        <a href=" https://youtu.be/nyNxeKQQeaI?si=FoAInMaedd-sW0Ha">
+                            <img src="https://i.pinimg.com/736x/bc/e5/8b/bce58b59ef875974c6b323c6638d4c85.jpg"> 
+                        </a>
+                        <p style="font-family: 'Krub', sans-serif;">&#x2022;&ensp;การถนอมอาหารแบบชาวม้ง | WILD SURVIVAL</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div>
+                        <a href="https://youtu.be/eFT7Pa9PPic?si=QpMNZUtZJCEQ-tft">
+                            <img src="https://i.pinimg.com/736x/3a/d8/58/3ad858ef0d35fed91abdfb9270a603f2.jpg"> 
+                        </a>
+                        <p style="font-family: 'Krub', sans-serif;">&#x2022;&ensp;แต้อี้ แต้กะ EP.4 | “ชาติพันธุ์ม้ง นักพูด นักสู้ นักเดินทาง” จ.แม่ฮ่องสอน</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div> <a href="https://youtu.be/0aT9KV4NXJ0?si=9G5K_SCcqKE0a-pS">
+                        <img src="https://i.pinimg.com/736x/77/ba/99/77ba99910776a4c9c242823427c7986a.jpg"> 
+                    </a>
+                    <p style="font-family: 'Krub', sans-serif;">&#x2022;&ensp;วิถีคนม้ง บ้านแม่สาน้อย อ.แม่ริม จ.เชียงใหม่ | ซีรีย์วิถีคน </p>
+                </div>
+            </div>
+                
+                
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#">เกี่ยวกับเรา</a>
+                <a href="#">นโยบายความเป็นส่วนตัว</a>
+                <a href="#">ข้อกำหนดการใช้งาน</a>
+                <a href="contrack-page.html">ติดต่อเรา</a>
+            </div>
+            <div class="copyright">
+                © 2023 MorThorEthnic. สงวนลิขสิทธิ์ทุกประการ
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

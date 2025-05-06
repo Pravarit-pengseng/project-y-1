@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="th">
+<!-- ผ้าทอ -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MorThorEthnic - ข้อมูลสินค้า</title>
+    <style>
+        /* Reset และ Font */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Kanit', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f4e9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Header */
+        header {
+            background-color: #2c5e1a;
+            color: white;
+            padding: 1.5rem 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        
+        .tagline {
+            font-size: 1rem;
+            margin-top: 0.5rem;
+            opacity: 0.9;
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: #3a7d22;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1.5rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1.5rem;
+            margin: 0 0.5rem;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background-color: #2c5e1a;
+        }
+        
+        .cart-icon {
+            position: relative;
+            color: white;
+            font-size: 1.2rem;
+            margin-left: 1rem;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: #d4a017;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }   
+        
+        /* Main Content */
+        .community-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .page-title {
+            color: #2c5e1a;
+            font-size: 2.2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .page-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: #e67e22;
+        }
+        
+        .community-description {
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            text-align: center;
+            color: #555;
+        }
+        
+        /* Community Hero */
+        .community-hero {
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+        }
+        
+        .community-hero-content {
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: white;
+            padding: 2rem;
+            width: 100%;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+        
+        .community-name {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .community-location {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .community-location i {
+            margin-right: 0.5rem;
+        }
+        
+        /* Community Sections */
+        .community-section {
+            margin-bottom: 3rem;
+        }
+        
+        .section-title {
+            color: #2c5e1a;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e67e22;
+            display: inline-block;
+        }
+        
+        .section-content {
+            display: grid;
+
+            gap: 1rem;
+            height: auto;
+        }
+        
+        .section-text {
+            line-height: 1.8;
+            text-align: justify;
+        }
+        
+        .section-image {
+            border-radius: 8px;
+            overflow:auto;
+            width: 50%;
+            height: 50%;
+            margin-left: 25%;
+            margin-right: 25%;
+        }
+        
+        .section-image img {
+            width: 100%;
+            height:100%;
+            object-fit: cover;
+            flex-direction: row;
+            border-radius: 5%;
+            padding: 0.2rem;
+        }
+        .add-to-cart {
+            width: 25%;
+            padding: 0.7rem;
+            background-color: #2c5e1a;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            margin-left: 35%;
+        }
+        
+        .add-to-cart:hover {
+            background-color: #2c5e1a;
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
+            gap: 0.5rem;
+        }
+        
+        .page-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            background-color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .page-btn:hover, .page-btn.active {
+            background-color: #2c5e1a;
+            color: white;
+            border-color: #2c5e1a;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #2c5e1a;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .copyright {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .section-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .community-hero {
+                height: 300px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Krub:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">MorThorEthnic</div>
+        <div class="tagline">อนุรักษ์วัฒนธรรม สืบสานภูมิปัญญาไทย</div>
+    </header>
+    
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-links">
+                <a href = "mainpage-2.html" class = "nav-link">หน้าแรก</a>
+                <a href = "page2.html" class = "nav-link">ข้อมูลชุมชน</a>
+                <a href = "shop.html" class = "nav-link">สินค้าชุมชน</a>
+                <a href = "activity.html" class = "nav-link">กิจกรรม</a>
+                <a href = "login.html" class = "nav-link">ออกจากระบบ</a>
+            </div>
+            <div>
+                <a href="addcart.html" class="nav-link cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+                <a href="login.html" class="nav-link"><i class="fas fa-user"></i></a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <div class="community-container">
+        <div class="page-header">
+            <h1 class="page-title"><p style="font-family: 'Krub', sans-serif;">ชนเผ่ากะเหรี่ยง</p></h1>
+        </div>
+        
+        <!-- Community Hero -->
+        <div class="community-hero" style="background-image: url('https://i.pinimg.com/736x/27/ee/16/27ee16ab743615d14638220ade491c4d.jpg') " ></div>
+        <!-- About Section -->
+        <div class="community-section">
+            <h2 class="section-title"><p style="font-family: 'Krub', sans-serif;">ผ้าทอกะเหรี่ยง (ผ้าซิ่น/เสื้อยาวทอมือ)</p></h2>
+            <div class="section-image" >
+                <img  src="https://i.pinimg.com/736x/6e/74/14/6e7414fd1af102d6e845bad5ff1a59a4.jpg" >
+            </div>
+            <div class="section-content">
+                <div class="section-text">
+                    <pre style="font-family: 'Krub', sans-serif;"><b style="font-family: 'Krub', sans-serif;">รายละเอียดสินค้า</b></pre>
+                    <p style="font-family: 'Krub', sans-serif;">เป็นงานฝีมือที่สืบทอดจากรุ่นสู่รุ่นของชนเผ่ากะเหรี่ยงซึ่งเป็นกลุ่มชาติพันธุ์ที่อาศัยอยู่ในพื้นที่ภูเขาของภาคเหนือและตะวันตกของประเทศไทยมาอย่างยาวนาน โดยเฉพาะในจังหวัดแม่ฮ่องสอน ตาก เชียงใหม่ และลำพูน</p>
+                    <pre style="font-family: 'Krub', sans-serif;">
+    &#x2022;&ensp;ผ้าทอส่วนใหญ่ทอด้วย กี่เอว (backstrap loom) ซึ่งเป็นกี่ทอผ้าแบบดั้งเดิม 
+    &#x2022;&ensp;สีของผ้า มักได้จากวัสดุธรรมชาติ เช่น เปลือกไม้ ใบไม้ รากไม้ จึงมีโทนสีที่กลมกลืนกับธรรมชาติ 
+    &#x2022;&ensp;ลวดลาย ไม่ใช่แค่ความสวยงาม แต่สะท้อน ฐานะ อายุ ความเชื่อ หรือแม้กระทั่งสถานภาพของผู้สวมใส่
+    &#x2022;&ensp;ผ้าทอกะเหรี่ยงแบบดั้งเดิมที่รู้จักกันดี เช่น
+                -เสื้อยาวสีขาวของหญิงสาว ที่ยังไม่แต่งงาน
+                -เสื้อสีเข้มลายสลับสำหรับผู้หญิงแต่งงานแล้ว
+                -ซิ่นทอมือที่ใช้ในงานบุญ งานประเพณ
+            
+                        <b style="font-family: 'Krub', sans-serif;">                                                        “ ในปัจจุบัน ผ้าทอกะเหรี่ยงได้ถูกพัฒนาให้ร่วมสมัยมากขึ้น 
+                                                            กลายเป็นสินค้าแฟชั่น ของใช้ หรือของตกแต่งบ้านที่ยังคงรักษาจิตวิญญาณดั้งเดิมไว้ 
+                                                                                    — เพื่อให้ทุกเส้นใยยังพูดได้ และทุกผืนผ้ายังมีชีวิต ”</b>
+            </pre>
+                </div>
+            </div>
+        </div>
+        <button class="add-to-cart">เพิ่มในตะกร้า</button>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#">เกี่ยวกับเรา</a>
+                <a href="#">นโยบายความเป็นส่วนตัว</a>
+                <a href="#">ข้อกำหนดการใช้งาน</a>
+                <a href="contrack-page.html">ติดต่อเรา</a>
+            </div>
+            <div class="copyright">
+                © 2023 MorThorEthnic. สงวนลิขสิทธิ์ทุกประการ
+            </div>
+        </div>
+    </footer>
+    <!-- JavaScript -->
+    <script>
+        // Cart Functionality
+        document.addEventListener("DOMContentLoaded", function() {
+            // Add to Cart Buttons
+            const addToCartButtons = document.querySelectorAll(".add-to-cart");
+            const cartCount = document.querySelector(".cart-count");
+            let count = 0;
+            
+            addToCartButtons.forEach(button => {
+                button.addEventListener("click", function() {
+                    count++;
+                    cartCount.textContent = count;
+                    
+                    // Animation
+                    this.textContent = 'เพิ่มแล้ว!';
+                    this.style.backgroundColor = '#2ecc71';
+                    
+                    setTimeout(() => {
+                        this.textContent = 'เพิ่มในตะกร้า';
+                        this.style.backgroundColor = '#2c5e1a';
+                    }, 1000);
+                });
+            });
+            
+        });
+    </script>
+</body>
+</html>
