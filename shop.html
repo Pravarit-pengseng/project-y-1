@@ -435,15 +435,15 @@
             <div class="search-box">
                 <i class="fas fa-search"></i>
                 <input type="text" placeholder="ค้นหาสินค้า...">
-            </div>
+            <!--</div>
             <div class="category-filter">
                 <button class="category-btn active">ทั้งหมด</button>
-                <button class="category-btn">1 filter</button>
-                <button class="category-btn">2 filter</button>
-                <button class="category-btn">3 filter</button>
-                <button class="category-btn">4 filter</button>
-                <button class="category-btn">5 filter</button>
-            </div>
+                <button class="category-btn ">เผ่ากะเหรี่ยง</button>
+                <button class="category-btn ">เผ่าลีซูหรือลีซอ</button>
+                <button class="category-btn ">เผ่าม้ง</button>
+                <button class="category-btn ">เผ่าลาหู่หรือมูเซอ</button>
+                
+            </div>-->
         </div>
         
         <!-- Products Grid -->
@@ -729,14 +729,15 @@
         </div>
         
         <!-- Pagination -->
-        <div class="pagination">
+        <!--<div class="pagination">
             <button class="page-btn"><i class="fas fa-chevron-left"></i></button>
             <button class="page-btn active">1</button>
-            <button class="page-btn">2</button>
+            <button class="page-btn ">2</button>
             <button class="page-btn">3</button>
             <button class="page-btn">4</button>
             <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
-        </div>
+        </div>-->
+    </div>
     </div>
     
     <!-- Footer -->
@@ -746,8 +747,6 @@
                 <a href="#">เกี่ยวกับเรา</a>
                 <a href="#">นโยบายความเป็นส่วนตัว</a>
                 <a href="#">ข้อกำหนดการใช้งาน</a>
-                <a href="#">วิธีการชำระเงิน</a>
-                <a href="#">การจัดส่ง</a>
                 <a href="contrack-page.html">ติดต่อเรา</a>
             </div>
             
@@ -759,7 +758,7 @@
             </div>
             
             <div class="copyright">
-                © 2023 MorThorEthnic. สงวนลิขสิทธิ์ทุกประการ
+                © 2025 MorThorEthnic. สงวนลิขสิทธิ์ทุกประการ
             </div>
         </div>
     </footer>
@@ -809,11 +808,13 @@
                             return;
                         }
                         
+                        
                         const productCategory = card.querySelector('.product-desc').textContent;
                         
                         if (productCategory.includes(category)) {
                             card.style.display = 'flex';
                         } else {
+                            console.log('ad')
                             card.style.display = 'none';
                         }
                     });

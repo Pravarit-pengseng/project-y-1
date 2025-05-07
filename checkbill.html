@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MorThorEthnic - ตะกร้าสินค้า</title>
+    <style>
+        /* Reset และ Font */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Kanit', sans-serif;
+        }
+        
+        body {
+            background-color: #f9f5f0;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Header */
+        header {
+            background-color: #4a2c12;
+            color: white;
+            padding: 1.5rem 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        
+        .tagline {
+            font-size: 1rem;
+            margin-top: 0.5rem;
+            opacity: 0.9;
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: #5d3a1a;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1.5rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1.5rem;
+            margin: 0 0.5rem;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background-color: #4a2c12;
+        }
+        
+        .cart-icon {
+            position: relative;
+            color: white;
+            font-size: 1.2rem;
+            margin-left: 1rem;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: #d4a017;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+        
+        /* Main Content */
+        .cart-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .cart-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .page-title {
+            color: #4a2c12;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+            grid-column: 1 / -1;
+        }
+        
+        .page-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 3px;
+            background-color: #d4a017;
+        }
+        
+        /* Cart Items */
+        .cart-items {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .cart-item {
+            display: grid;
+            grid-template-columns: 100px 1fr 150px;
+            gap: 1.5rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        @media (max-width: 576px) {
+            .cart-item {
+                grid-template-columns: 80px 1fr;
+                grid-template-rows: auto auto;
+            }
+        }
+        
+        .cart-item-img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        
+        .cart-item-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .cart-item-name {
+            color: #4a2c12;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .cart-item-desc {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .cart-item-meta {
+            display: flex;
+            align-items: center;
+            margin-top: auto;
+        }
+        
+        .cart-item-price {
+            color: #d4a017;
+            font-weight: bold;
+        }
+        
+        .cart-item-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: center;
+        }
+        
+        @media (max-width: 576px) {
+            .cart-item-actions {
+                grid-column: 1 / -1;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+        
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            margin-top: 50%;
+            color: gray;
+            font-size: 0.8rem;
+        }
+        
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            background-color: #eee;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quantity-input {
+            width: 50px;
+            height: 30px;
+            text-align: center;
+            border: 1px solid #ddd;
+            margin: 0 0.5rem;
+        }
+        
+        .remove-item {
+            background: none;
+            border: none;
+            color: #e74c3c;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .remove-item i {
+            margin-right: 0.3rem;
+        }
+        
+        /* Cart Summary */
+        .cart-summary {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+        
+        .summary-title {
+            color: #4a2c12;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #d4a017;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        
+        .summary-total {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .checkout-btn {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background-color: #d4a017;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            transition: all 0.3s;
+        }
+        
+        .checkout-btn:hover {
+            background-color: #b3890e;
+        }
+        
+        .continue-shopping {
+            display: block;
+            text-align: center;
+            margin-top: 1rem;
+            color: #4a2c12;
+            text-decoration: none;
+        }
+        
+        .continue-shopping:hover {
+            text-decoration: underline;
+        }
+        
+        /* Empty Cart */
+        .empty-cart {
+            text-align: center;
+            padding: 3rem 0;
+            grid-column: 1 / -1;
+        }
+        
+        .empty-cart-icon {
+            font-size: 5rem;
+            color: #ddd;
+            margin-bottom: 1.5rem;
+        }
+        
+        .empty-cart-message {
+            font-size: 1.5rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+        
+        .shop-btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background-color: #4a2c12;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .shop-btn:hover {
+            background-color: #5d3a1a;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #4a2c12;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .payment-methods {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .payment-methods img {
+            height: 30px;
+            filter: brightness(0) invert(1);
+            opacity: 0.8;
+        }
+        
+        .copyright {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">MorThorEthnic</div>
+        <div class="tagline">สินค้าชุมชนคุณภาพ จากภูมิปัญญาท้องถิ่น</div>
+    </header>
+    
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-links">
+                <a href = "mainpage-2.html" class = "nav-link">หน้าแรก</a>
+                <a href = "page2.html" class = "nav-link">ข้อมูลชุมชน</a>
+                <a href = "shop.html" class = "nav-link">สินค้าชุมชน</a>
+                <a href = "activity.html" class = "nav-link">กิจกรรม</a>
+                <a href = "login.html" class = "nav-link">ออกจากระบบ</a>
+            </div>
+            <div>
+                <a href="addcart.html" class="nav-link cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">3</span>
+                </a>
+                <a href="login.html" class="nav-link"><i class="fas fa-user"></i></a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <div class="cart-container">
+        <h1 class="page-title">ตะกร้าสินค้าของคุณ</h1>
+        
+        <!-- Cart Items -->
+        <div class="cart-items">
+            <!-- Cart Item 1 -->
+            <div class="cart-item">
+                <img src="https://i.pinimg.com/736x/7f/89/0b/7f890b9c3c1d49511047797ec182210a.jpg" alt="ผ้าทอพื้นเมือง" class="cart-item-img">
+                <div class="cart-item-info">
+                    <h3 class="cart-item-name">ผ้าทอมือของลาหู่</h3>
+                    <p class="cart-item-desc">ผ้าทอมือจากชุมชนบ้านทอผ้า ลวดลายเอกลักษณ์เฉพาะตัว</p>
+                    <div class="cart-item-meta">
+                        <span class="cart-item-price">600 บาท</span>
+                    </div>
+                </div>
+                <div class="cart-item-actions">
+                    <div class="quantity-control">
+                        <p>x1</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Cart Item 2 -->
+            <div class="cart-item">
+                <img src="https://i.pinimg.com/736x/6e/74/14/6e7414fd1af102d6e845bad5ff1a59a4.jpg" alt="เครื่องจักสาน" class="cart-item-img">
+                <div class="cart-item-info">
+                    <h3 class="cart-item-name">ผ้าทอกะเหรี่ยง 
+                        (ผ้าซิ่น/เสื้อยาวทอมือ)</h3>
+                    <p class="cart-item-desc">สินค้าแฟชั่น ร่วมสมัย ของใช้ หรือของตกแต่งบ้าน</p>
+                    <div class="cart-item-meta">
+                        <span class="cart-item-price">300 บาท</span>
+                    </div>
+                </div>
+                <div class="cart-item-actions">
+                    <div class="quantity-control">
+                        <p>x2</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Cart Item 3 -->
+            <div class="cart-item">
+                <img src="https://i.pinimg.com/736x/f1/e2/7e/f1e27e402193419d188a8d7c79e60935.jpg" alt="น้ำพริก" class="cart-item-img">
+                <div class="cart-item-info">
+                    <h3 class="cart-item-name">น้ำพริกสมุนไพร</h3>
+                    <p class="cart-item-desc">น้ำพริกตำมือสูตรดั้งเดิมจากชุมชน</p>
+                    <div class="cart-item-meta">
+                        <span class="cart-item-price">69 บาท</span>
+                    </div>
+                </div>
+                <div class="cart-item-actions">
+                    <div class="quantity-control">
+                        <p>x3</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Cart Summary -->
+        <div class="cart-summary">
+            <h2 class="summary-title">สรุปรายการ</h2>
+            <div class="summary-row">
+                <span>จำนวนสินค้า:</span>
+                <span>6 ชิ้น</span>
+            </div>
+            <div class="summary-row">
+                <span>ราคารวม:</span>
+                <span>1,407 บาท</span>
+            </div>
+            <div class="summary-row">
+                <span>ค่าจัดส่ง:</span>
+                <span>50 บาท</span>
+            </div>
+            <div class="summary-row summary-total">
+                <span>รวมทั้งหมด:</span>
+                <span>1,457 บาท</span>
+            </div>
+            <a href="payment.html" style="color:white;"><button class="checkout-btn">ยืนยันการชำระเงิน</button></a>
+        </div>
+        
+        <!-- ถ้าตะกร้าว่างให้แสดงส่วนนี้แทน -->
+        <!-- <div class="empty-cart">
+            <div class="empty-cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+            <h2 class="empty-cart-message">ตะกร้าสินค้าของคุณว่างเปล่า</h2>
+            <a href="products.html" class="shop-btn">เลือกซื้อสินค้า</a>
+        </div> -->
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#">เกี่ยวกับเรา</a>
+                <a href="#">นโยบายความเป็นส่วนตัว</a>
+                <a href="#">ข้อกำหนดการใช้งาน</a>
+                <a href="contrack-page.html">ติดต่อเรา</a>
+            </div>
+            
+            <div class="payment-methods">
+                <img src="https://cdn-icons-png.flaticon.com/512/196/196578.png" alt="บัตรเครดิต">
+                <img src="https://cdn-icons-png.flaticon.com/512/196/196566.png" alt="พร้อมเพย์">
+                <img src="https://cdn-icons-png.flaticon.com/512/825/825454.png" alt="โอนเงิน">
+                <img src="https://cdn-icons-png.flaticon.com/512/825/825462.png" alt="เก็บเงินปลายทาง">
+            </div>
+            
+            <div class="copyright">
+                © 2025 MorThorEthnic. สงวนลิขสิทธิ์ทุกประการ
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // ตัวนับจำนวนสินค้าในตะกร้า
+            const cartCount = document.querySelector('.cart-count');
+            
+            // ปุ่มเพิ่ม/ลดจำนวนสินค้า
+            const quantityBtns = document.querySelectorAll('.quantity-btn');
+            const quantityInputs = document.querySelectorAll('.quantity-input');
+            
+            quantityBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const input = this.parentElement.querySelector('.quantity-input');
+                    let value = parseInt(input.value);
+                    
+                    if (this.textContent === '+') {
+                        value++;
+                    } else {
+                        if (value > 1) value--;
+                    }
+                    
+                    input.value = value;
+                    updateCartTotal();
+                });
+            });
+            
+            // ฟังก์ชันอัพเดทยอดรวม
+            function updateCartTotal() {
+                const cartItems = document.querySelectorAll('.cart-item');
+                let totalItems = 0;
+                let subtotal = 0;
+                
+                cartItems.forEach(item => {
+                    const priceText = item.querySelector('.cart-item-price').textContent;
+                    const price = parseInt(priceText.replace(/[^\d]/g, ''));
+                    const quantity = parseInt(item.querySelector('.quantity-input').value);
+                    
+                    totalItems += quantity;
+                    subtotal += price * quantity;
+                });
+                
+                // อัพเดทจำนวนสินค้าในตะกร้า (ไอคอนบนเมนู)
+                cartCount.textContent = totalItems;
+                
+                // อัพเดทสรุปรายการ
+                const summaryItems = document.querySelector('.summary-row:nth-child(1) span:last-child');
+                const summarySubtotal = document.querySelector('.summary-row:nth-child(2) span:last-child');
+                const summaryTotal = document.querySelector('.summary-total span:last-child');
+                
+                summaryItems.textContent = totalItems + ' ชิ้น';
+                summarySubtotal.textContent = subtotal.toLocaleString() + ' บาท';
+                
+                // คำนวณค่าจัดส่ง (ตัวอย่าง: 50 บาทเมื่อซื้อต่ำกว่า 1000 บาท)
+                const shipping = subtotal >= 1000 ? 0 : 50;
+                document.querySelector('.summary-row:nth-child(3) span:last-child').textContent = 
+                    shipping === 0 ? 'ฟรี' : shipping.toLocaleString() + ' บาท';
+                
+                // ยอดรวมทั้งหมด
+                const total = subtotal + shipping;
+                summaryTotal.textContent = total.toLocaleString() + ' บาท';
+            }
+            
+            // ปุ่มลบสินค้า
+            const removeBtns = document.querySelectorAll('.remove-item');
+            
+            removeBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const cartItem = this.closest('.cart-item');
+                    cartItem.remove();
+                    
+                    // ตรวจสอบว่าตะกร้าว่างหรือไม่
+                    const cartItems = document.querySelectorAll('.cart-item');
+                    if (cartItems.length === 0) {
+                        showEmptyCart();
+                    } else {
+                        updateCartTotal();
+                    }
+                });
+            });
+            
+            // ฟังก์ชันแสดงตะกร้าว่าง
+            function showEmptyCart() {
+                const cartContainer = document.querySelector('.cart-container');
+                cartContainer.innerHTML = `
+                    <h1 class="page-title">ตะกร้าสินค้าของคุณ</h1>
+                    <div class="empty-cart">
+                        <div class="empty-cart-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <h2 class="empty-cart-message">ตะกร้าสินค้าของคุณว่างเปล่า</h2>
+                        <a href="shop.html" class="shop-btn">เลือกซื้อสินค้า</a>
+                    </div>
+                `;
+                
+                // อัพเดทตัวนับตะกร้า
+                cartCount.textContent = '0';
+            }
+            
+            // ปุ่มชำระเงิน
+            const checkoutBtn = document.querySelector('.checkout-btn');
+            if (checkoutBtn) {
+                checkoutBtn.addEventListener('click', function() {
+                    //alert('ระบบกำลังพาคุณไปยังหน้าชำระเงิน');
+                    // ในทางปฏิบัติควรเปลี่ยนเส้นทางไปยังหน้าชำระเงิน
+                    // window.location.href = 'checkout.html';
+                });
+            }
+            
+            // อัพเดทครั้งแรกเมื่อโหลดหน้า
+            updateCartTotal();
+        });
+    </script>
+</body>
+</html>
